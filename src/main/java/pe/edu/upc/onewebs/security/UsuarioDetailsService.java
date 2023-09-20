@@ -27,7 +27,8 @@ public class UsuarioDetailsService implements UserDetailsService{
 			}			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		throw new UsernameNotFoundException("El usuario ingresado no existe");	
 	}

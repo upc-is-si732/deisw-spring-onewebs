@@ -39,6 +39,7 @@ public class MultaController {
 			model.addAttribute("multas", multas);
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.err.println(e.getMessage());
 		}		
 		return "/multa/listall";
 	}
@@ -52,7 +53,8 @@ public class MultaController {
 			model.addAttribute("detenidos", detenidos);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}	
 		
 		return "/multa/nuevo";
@@ -66,7 +68,8 @@ public class MultaController {
 				model.addAttribute("detenidos", detenidos);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.err.println(e.getMessage());
 			}	
 			return "/multa/nuevo";
 		} 
@@ -76,7 +79,8 @@ public class MultaController {
 				status.setComplete();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.err.println(e.getMessage());
 			}		
 			return "redirect:/onewebs/mulcts";
 		}
@@ -97,7 +101,8 @@ public class MultaController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "/multa/edit";
 	}
@@ -113,7 +118,8 @@ public class MultaController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "redirect:/onewebs/mulcts";
 	}

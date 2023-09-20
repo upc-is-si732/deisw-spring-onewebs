@@ -32,6 +32,7 @@ public class ComisariaController {
 			model.addAttribute("comisarias", comisarias);
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.err.println(e.getMessage());
 		}		
 		return "/comisaria/listall";
 	}
@@ -48,7 +49,8 @@ public class ComisariaController {
 			status.setComplete();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}		
 		return "redirect:/onewebs/policestations";
 	}
@@ -64,7 +66,8 @@ public class ComisariaController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "/comisaria/edit";
 	}
@@ -80,7 +83,8 @@ public class ComisariaController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "redirect:/onewebs/policestations";
 	}

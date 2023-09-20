@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		//super.configure(http); probando.
 		//.csrf().disable(); // deshabilitar
-		http.csrf().disable();
+		//http.csrf().disable();
 		http
 			.authorizeRequests()
 				.antMatchers("/onewebs/index.html").permitAll()

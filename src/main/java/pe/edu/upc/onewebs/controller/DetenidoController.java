@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import pe.edu.upc.onewebs.business.dto.DetenidoDto;
+import pe.edu.upc.onewebs.business.mapper.DetenidoMapper;
 import pe.edu.upc.onewebs.entity.Detenido;
 import pe.edu.upc.onewebs.service.DetenidoService;
 
@@ -40,6 +42,7 @@ public class DetenidoController {
 			model.addAttribute("detenidos", detenidos);
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.err.println(e.getMessage());
 		}		
 		return "/detenido/start";
 	}
@@ -51,13 +54,14 @@ public class DetenidoController {
 		return "/detenido/nuevo";
 	}
 	@PostMapping("/save")
-	public String save(@ModelAttribute("detenido") Detenido detenido, Model model, SessionStatus status) {
+	public String save(@ModelAttribute("detenido")DetenidoDto detenidoDto, Model model, SessionStatus status) {
 		try {
-			detenidoService.create(detenido);
+			detenidoService.create(DetenidoMapper.dtoToDetenido(detenidoDto));
 			status.setComplete();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}		
 		return "redirect:/onewebs/detainee";
 	}
@@ -73,7 +77,8 @@ public class DetenidoController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "/detenido/edit";
 	}
@@ -89,14 +94,16 @@ public class DetenidoController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return "redirect:/onewebs/detainee";
 	}
 	
 	@PostMapping("/search")
-	public String search(@ModelAttribute("detenido") Detenido detenido, Model model) {
+	public String search(@ModelAttribute("detenido") DetenidoDto detenidoDto, Model model) {
 		try {
+			Detenido detenido = DetenidoMapper.dtoToDetenido(detenidoDto);
 			List<Detenido> detenidos = detenidoService.fetchByApellidos( detenido.getApellidos() );
 			model.addAttribute("detenidos", detenidos);			
 			model.addAttribute("detenido", detenido);

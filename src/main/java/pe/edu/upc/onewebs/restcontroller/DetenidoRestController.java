@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pe.edu.upc.onewebs.business.dto.DetenidoDto;
+import pe.edu.upc.onewebs.business.mapper.DetenidoMapper;
 import pe.edu.upc.onewebs.entity.Detenido;
 import pe.edu.upc.onewebs.entity.Multa;
 import pe.edu.upc.onewebs.service.DetenidoService;
@@ -56,9 +58,9 @@ public class DetenidoRestController {
 	
 	// Grabar un detenido
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity< Detenido > saveDetainee( @RequestBody Detenido detenido ) {
+	public ResponseEntity< Detenido > saveDetainee( @RequestBody DetenidoDto detenidoDto ) {
 		try {
-			Detenido newDetenido = detenidoService.create(detenido);
+			Detenido newDetenido = detenidoService.create(DetenidoMapper.dtoToDetenido(detenidoDto));
 			return new ResponseEntity< Detenido >(newDetenido, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity< Detenido >(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -101,9 +103,10 @@ public class DetenidoRestController {
 	// Actualizando un detenido por id
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity< ? > updateById( @PathVariable("id") Integer id, @RequestBody Detenido detenido ) {
+	public ResponseEntity< ? > updateById( @PathVariable("id") Integer id, @RequestBody DetenidoDto detenidoDto ) {
 		try {
-			if (id == detenido.getId()) {
+			Detenido detenido = DetenidoMapper.dtoToDetenido(detenidoDto);
+			if (id.equals(detenido.getId())) {
 				// Buscar si existe el detenido
 				Optional<Detenido> optional = detenidoService.findById(id);
 				if( optional.isPresent() ) {
@@ -142,7 +145,7 @@ public class DetenidoRestController {
 	@PostMapping(path = "/{id}/mulcts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity< Multa > saveMulctDetainee( @PathVariable("id") Integer id, @RequestBody Multa multa ) {
 		try {
-			if (id == multa.getDetenido().getId()) {
+			if (id.equals(multa.getDetenido().getId())) {
 				Optional<Detenido> optional = detenidoService.findById(id);
 				if( optional.isPresent() ) {
 					multa.setDetenido(optional.get());

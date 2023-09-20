@@ -49,7 +49,8 @@ public class SignUpController {
 			status.setComplete();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}		
 		return "redirect:/onewebs/login";
 	}
